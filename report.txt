@@ -85,10 +85,18 @@ i did something but i didn't write it
 29/06/2026
 also i didn't do anything for today
 28
-1/06/2026
+1/07/2026
 no i started to creating Order and thinked about some aspects of order
 29
-2/06/2026
+2/07/2026
 i started to create order item
-05/06/2026
-let's be honst idid't try to code theese days i did did't write the the report god but i read about SRP and clean architecture also 
+30
+05/07/2026
+let's be honst idid't try to code theese days i did did't write the the report god but i read about SRP and clean architecture also
+31
+06/07/2026
+i write checkout service and then i write test for it encounter some issue now i must try to fix it
+32
+07/07/2026
+most  today i spent time to debug the error in checkout test
+tomorrow i try to write.test with scenario when checkout fail or cart is empty
