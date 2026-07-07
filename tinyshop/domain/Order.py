@@ -29,7 +29,7 @@ class OrderItem:
 @dataclass(frozen=True,slots=True)
 class Order:
     id : int  = field()
-    items: Tuple[OrderItem] = field(default_factory=tuple)
+    items: Tuple[OrderItem,...] = field(default_factory=tuple)
     def __post_init__(self):
         if not isinstance(self.id,int) or isinstance(self.id, bool) or self.id <= 0 :
             raise ValueError("ID cannot be less than zero")
