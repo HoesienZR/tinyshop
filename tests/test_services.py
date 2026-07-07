@@ -1,18 +1,31 @@
 import pytest
 
 from tinyshop.domain.models import Product
-from tinyshop.services import ProductService,CartService
-from tinyshop.repositories import InMemoryProductRepository,CartInMemoryRepository
+from tinyshop.services import ProductService, CartService, CheckoutService
+from tinyshop.repositories import InMemoryProductRepository, CartInMemoryRepository, InMemoryOrderRepository, \
+    OrderRepository, CartRepository
 
 
+@pytest.fixture
+def cart_repository():
+    cart = CartInMemoryRepository()
+    print(cart)
+    return cart
+@pytest.fixture
+def order_repository():
+    return InMemoryOrderRepository()
 @pytest.fixture
 def service():
     repo = InMemoryProductRepository()
     return ProductService(repo=repo)
 @pytest.fixture
-def cart_service():
-    repo = CartInMemoryRepository()
-    return CartService(repo=repo)
+def cart_service(cart_repository):
+    return CartService(repo=cart_repository)
+@pytest.fixture
+def checkout_service(cart_repository, order_repository):
+
+     print(cart_repository)
+     return CheckoutService(cart_repository=cart_repository, order_repository=order_repository)
 def test_create_product_by_service(service: ProductService):
 
     product = service.create_product(product_id=1,title="test",currency="IRR",amount=100)
@@ -105,3 +118,19 @@ def test_change_product_quantity(cart_service: CartService,service: ProductServi
     cart.add_product(product, quantity=2)
     cart.change_quantity(product_id=1,change=3)
     assert cart.items[0].quantity == 5
+def test_successful_checkout_with_service(cart_service: CartService,
+                                          service: ProductService,
+                                          checkout_service:CheckoutService):
+    cart = cart_service.create_cart(cart_id=1)
+
+    product = service.create_product(product_id=1, title="test", currency="IRR", amount=100)
+    cart.add_product(product, quantity=2)
+    order = checkout_service.checkout(cart_id=1,order_id=10)
+    assert len(order.items) == 1
+    assert order.items[0].quantity == 2
+    assert order.items[0].product_id == 1
+    with pytest.raises(ValueError):
+        cart_service.get_cart_by_id(cart_id=1)
+
+
+
