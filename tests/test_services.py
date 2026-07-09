@@ -128,9 +128,25 @@ def test_successful_checkout_with_service(cart_service: CartService,
     order = checkout_service.checkout(cart_id=1,order_id=10)
     assert len(order.items) == 1
     assert order.items[0].quantity == 2
-    assert order.items[0].product_id == 1
+    assert order.items[0].product_id == product.id
+    assert order.items[0].unit_price == product.price
+    assert order.items[0].unit_price.amount == product.price.amount
+    assert order.id == 10
+    assert order.total_price == 200
+    assert order.total_price.currency == "IRR"
     with pytest.raises(ValueError):
         cart_service.get_cart_by_id(cart_id=1)
 
+def test_checkout_with_empty_cart(cart_service: CartService,
+                                  checkout_service:CheckoutService):
+    cart = cart_service.create_cart(cart_id=1)
+    with pytest.raises(ValueError ):
+        order = checkout_service.checkout(cart_id=1,order_id=10)
+    retrieved_cart = cart_service.get_cart_by_id(cart_id=cart.id)
+    assert retrieved_cart.id == cart.id
 
-
+def test_checkout_with_invalid_cart(cart_service: CartService,
+                                  service: ProductService,
+                                  checkout_service:CheckoutService):
+    with pytest.raises(ValueError):
+        checkout_service.checkout(cart_id=1,order_id=10)
