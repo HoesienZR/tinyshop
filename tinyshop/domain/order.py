@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Tuple
-from tinyshop.domain.models import Money, CartItem
+
+from tinyshop.domain.Money import Money
 
 
 @dataclass(frozen=True,slots=True)
