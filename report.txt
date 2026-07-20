@@ -103,3 +103,18 @@ tomorrow i try to write.test with scenario when checkout fail or cart is empty
 33
 08/07/2026
 we just write tests and tried to refactor project
+34
+09/07/2026
+we write tests refactored project start unit of work
+35
+10/07/2026
+unit of work just getting started things are about to get interesting :D
+36
+13/07/2026
+i'm sure i just skipped one day how the hell i skipped two days i don't know but i'm trying to write session now
+37
+19/08/2026
+im back you missed me with new plan we are gonna learn more and get deeper and deeper anyway today i spent my time understanding uow and session tomorrow we move on the real implementations
+38
+20/08/2026
+well now i'm processing and writing uow and session and recreated project
