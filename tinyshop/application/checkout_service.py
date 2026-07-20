@@ -1,20 +1,20 @@
-from tinyshop.domain.Order import Order, OrderItem
-from tinyshop.repositories.protocols import CartRepository, OrderRepository
-
+from tinyshop.domain.order import Order, OrderItem
+from tinyshop.application.unit_of_work import InMemoryUnitOfWork,AbstractUnitOfWork
 
 class CheckoutService:
     def __init__(self,
-                 cart_repository:CartRepository,
-                 order_repository:OrderRepository) -> None:
-        self.cart_repository = cart_repository
-        self.order_repository = order_repository
+                 uow : AbstractUnitOfWork) -> None:
+        self.uow = uow
     def checkout(self,cart_id:int,order_id:int ) -> Order:
-        cart = self.cart_repository.get(cart_id=cart_id)
-        if not cart.items:
-            raise ValueError(f"No items in  found in cart with item {cart_id}")
-        order_items = [ OrderItem.from_cart_item(item ) for item in cart.items ]
-        order = Order(id=order_id,items= tuple(order_items))
-        self.order_repository.add(order=order)
-        self.cart_repository.remove(cart_id=cart_id)
+        with self.uow:
+            cart = self.uow.carts.get(cart_id=cart_id)
+            if not cart.items:
+                #TODO cart not found error
+                raise ValueError(f"No items in  found in cart with item {cart_id}")
+            order_items = [ OrderItem.from_cart_item(item ) for item in cart.items ]
+            order = Order(id=order_id,items= tuple(order_items))
+            self.uow._session.add_new_order(order=order)
+            self.uow._session.add_delete_carts(cart_id=cart_id)
+            self.uow.commit()
         return order
 
