@@ -1,11 +1,11 @@
 from pathlib import Path
 from typing import Iterable
 
-from tinyshop.domain.CartItem import Cart
-from tinyshop.domain.Order import Order
-from tinyshop.domain.Product import Product
+from tinyshop.domain.cart_Item import Cart
+from tinyshop.domain.order import Order
+from tinyshop.domain.product import  Product
 from tinyshop.repositories.protocols import ProductRepository, CartRepository, OrderRepository
-
+from tinyshop.application.unit_of_work import _Session
 
 class InMemoryProductRepository(ProductRepository):
     def __init__(self) -> None:
@@ -31,17 +31,13 @@ class InMemoryProductRepository(ProductRepository):
 
 
 class CartInMemoryRepository(CartRepository):
-    def __init__(self) -> None:
+    def __init__(self,session:_Session,) -> None:
         self._carts: dict[int, Cart] = {}
+        self.session = session
     def add(self ,cart: Cart) -> None:
-        if cart.id   in self._carts:
-            raise ValueError(f'Cart {cart} already exist')
-        self._carts[cart.id] = cart
+        self.session.add_carts(cart)
     def get(self, cart_id :int) -> Cart:
-        try:
-            return self._carts[cart_id]
-        except KeyError:
-            raise ValueError("Cart not found")
+        return self.session.get_cart(cart_id)
     def list(self) -> Iterable[Cart]:
         return self._carts.values()
     def remove(self ,cart_id :int) -> None:
@@ -53,16 +49,13 @@ class CartInMemoryRepository(CartRepository):
 
 
 class InMemoryOrderRepository(OrderRepository):
-    def __init__(self) -> None:
+    def __init__(self,session:_Session) -> None:
         self._orders: dict[int, Order] = {}
+        self.session = session
     def add(self ,order :Order) -> None:
-        if order.id in self._orders:
-            raise ValueError(f'Order {order.id} already exists')
-        self._orders[order.id] = order
+        self.session.add_new_order(order)
     def get(self, order_id :int) -> Order:
-        if order_id not in self._orders:
-            raise ValueError("Order not found")
-        return self._orders[order_id]
+        return self.session.get_order(order_id=order_id)
     def list(self) -> Iterable[Order]:
         return self._orders.values()
     def remove(self ,order_id :int) -> None:
