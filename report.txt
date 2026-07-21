@@ -1,0 +1,123 @@
+31/05/2026
+we just have started tiny shop project
+and tried to create product and money dataclass
+ and it's was't as good as time i invest so i need to make it more value in it
+01/06/2026
+day 2
+i just tried to adapt  myself to dataclass way it's take little longer than 1 first day but let's keep up 15 more
+minute don't kill anyone
+day 4
+03/06/2026
+we made good progress and finished the multipy keep up man
+day 5
+04/06/2026
+we finished testing  modules and done new validtation for today now we are going to add behvaior to our data model
+day 06
+05/06/2026
+for today we have reached to repository pattern and finihshed discount logic and tests
+day 07
+06/06/2026
+today was't as effienct as last six days i felt so mushc tired that i can't open my eyes so i just had to finish it
+day 08
+07/06/2026
+today i cant write code i just thought about code and how the works
+day 09
+08/06/2026
+today i used typer and now im trying to create repository for my data
+day 10
+09/06/2026
+today we just finished jsonInmemomryrepository now i want to jump on container it's now gonna get intersting
+day 11
+10/06/2026
+we just get into intersting part repository and compusation it's really tempting
+day 12
+11/06/2026
+for today i just write cli and used repository i have written for my own use 
+day 13
+12/06/2026
+for today i just tried to sync my code and add type hint plus i used protocol for abstraction and well it was amazing
+day 14
+13/06/2026
+god just blessed us and the exam got dalayed by four days for today we finished some remaining type hint and fixed cli now we move on to write tests 
+day 15
+14/06/2026
+i just wrote test for today for my domains level i don't want to say it's was boring but let's be honest it's was boring so much
+day 16
+15/06/2026
+so i just tried to stop writing codes not becuase they are hard but becuase they are boring and  have to move on and learning something else that is exiting
+but it doesn't mean i have to leave tests alone it's very important
+day 17
+16/06/2026
+today i didn't right single line of code  tried to chat with ai and make it optimize for  not return any code and guide and motivate through process
+but i spent 20 minute more than usual to optimze this well let's be honest become more optimize is better than 31 days of writing code blindly
+day 18
+17/06/2026
+well we just . what we did yesterday ?oh we just wrote lots of test .
+day 19
+18/06/2026
+created new models name cart now we are going to implement cart for our app :D
+day 20
+19/06/2026
+keep up the good fight brother . and for today i just have written some test for add product for cart and test for add product then add new feature for remove product and add test to
+tommrow we are going on creating total price
+day 21
+20/06/2026
+well now i just wrote some features it is good but i think it's not enough but let's be honest slowly but consistent.
+but  every day slow progress you have chance you have job just do it keep up good fight amigo (read this again if you felt useless)
+day 22
+21/06/2026
+today i just wrote a repository pattern and service for my cart
+23
+22/06/2026
+well for today i just wrote new feature and write some tests im really tired i wish just pass exam and go it's like touture
+24
+23/06/2026
+well from now on we changed the plan for tiny shop for at least 7 days from now on tried to much focus on exam than codes
+(but it doesn't mean i want to leave i can't focus so i spend my time where i could decrease my stress ) |
+25
+27/06/2026
+alright look i know i can't make excuse but i weren't being lazy and skipped the session i were studying for my exam it's works
+but now i back and tried to get on track we are humans after all sometime we have to spend our time in other necessry fields ah  it feels so good to do this again
+26
+28/06/2026
+i did something but i didn't write it
+27
+29/06/2026
+also i didn't do anything for today
+28
+1/07/2026
+no i started to creating Order and thinked about some aspects of order
+29
+2/07/2026
+i started to create order item
+30
+05/07/2026
+let's be honst idid't try to code theese days i did did't write the the report god but i read about SRP and clean architecture also
+31
+06/07/2026
+i write checkout service and then i write test for it encounter some issue now i must try to fix it
+32
+07/07/2026
+most  today i spent time to debug the error in checkout test
+tomorrow i try to write.test with scenario when checkout fail or cart is empty
+33
+08/07/2026
+we just write tests and tried to refactor project
+34
+09/07/2026
+we write tests refactored project start unit of work
+35
+10/07/2026
+unit of work just getting started things are about to get interesting :D
+36
+13/07/2026
+i'm sure i just skipped one day how the hell i skipped two days i don't know but i'm trying to write session now
+37
+19/08/2026
+im back you missed me with new plan we are gonna learn more and get deeper and deeper anyway today i spent my time understanding uow and session tomorrow we move on the real implementations
+38
+20/08/2026
+well now i'm processing and writing uow and session and recreated project
+39
+21/08/2026
+well UoW finished just tests remains to finish :D
