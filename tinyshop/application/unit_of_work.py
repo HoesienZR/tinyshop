@@ -13,37 +13,38 @@ class AbstractUnitOfWork(ABC):
     def __exit__(self, exc_type, exc_val, exc_tb):
         if exc_type:
             self.rollback()
-        self.rollback()
+        else :
+            self.rollback()
     @abstractmethod
     def rollback(self): ...
     @abstractmethod
     def commit(self): ...
 
 class InMemoryUnitOfWork(AbstractUnitOfWork):
-    def __init__(self,carts_repository: CartRepository,orders_repository:OrderRepository)-> None :
+    def __init__(self,carts_repository: CartRepository,orders_repository:OrderRepository,in_memory_storage:MemoryStorage)-> None :
         self.carts = carts_repository
         self.orders = orders_repository
-        self._session  = _Session()
+        self._session  = Session(in_memory_storage)
 
         self._committed = False
-        self.new_orders = []
-        self.to_delete_carts = []
         
     def rollback(self) -> None :
         self._session.clear()
         self._committed = False
     def commit(self)-> None :
-        for order in self._session.new_orders:
-            self.orders.add(order)
-        for cart_id in self._session.to_delete_carts:
-            self.carts.remove(cart_id)
+        orders = self._session.new_orders
+        carts = self._session.new_carts
+        for order_id,order in orders.items():
+            self._session.storage.add_order(order=order)
+        for cart_id,cart  in carts.items():
+            self._session.storage.add_cart(cart=cart)
         self._session.clear()
         self._committed = True
     @property
-    def session(self) -> None :
+    def session(self) -> "Session" :
         return self._session
 
-class _Session:
+class Session:
     def __init__(self,storage:MemoryStorage) -> None:
         self.new_orders:dict[int, Order] = {}
         self.new_carts:dict[int , Cart] = {}
