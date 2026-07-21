@@ -118,3 +118,6 @@ im back you missed me with new plan we are gonna learn more and get deeper and d
 38
 20/08/2026
 well now i'm processing and writing uow and session and recreated project
+39
+21/08/2026
+well UoW finished just tests remains to finish :D
