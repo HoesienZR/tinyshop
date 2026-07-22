@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 from tinyshop.domain.cart_Item import Cart
 from tinyshop.domain.order import Order
+from tinyshop.repositories.in_memory import CartInMemoryRepository, InMemoryOrderRepository
 from tinyshop.repositories.protocols import CartRepository,OrderRepository
 from tinyshop.application.storage import MemoryStorage
 class AbstractUnitOfWork(ABC):
@@ -11,32 +12,26 @@ class AbstractUnitOfWork(ABC):
     def __enter__(self):
         return self
     def __exit__(self, exc_type, exc_val, exc_tb):
-        if exc_type:
-            self.rollback()
-        else :
-            self.rollback()
+        self.rollback()
     @abstractmethod
     def rollback(self): ...
     @abstractmethod
     def commit(self): ...
 
 class InMemoryUnitOfWork(AbstractUnitOfWork):
-    def __init__(self,carts_repository: CartRepository,orders_repository:OrderRepository,in_memory_storage:MemoryStorage)-> None :
-        self.carts = carts_repository
-        self.orders = orders_repository
+    def __init__(self,in_memory_storage:MemoryStorage)-> None :
         self._session  = Session(in_memory_storage)
-
+        self.carts =  CartInMemoryRepository(session=self._session)
+        self.orders =  InMemoryOrderRepository(session=self._session)
         self._committed = False
         
     def rollback(self) -> None :
         self._session.clear()
         self._committed = False
     def commit(self)-> None :
-        orders = self._session.new_orders
-        carts = self._session.new_carts
-        for order_id,order in orders.items():
+        for order_id,order in self._session.new_orders.values():
             self._session.storage.add_order(order=order)
-        for cart_id,cart  in carts.items():
+        for cart_id,cart  in self._session.new_carts.values():
             self._session.storage.add_cart(cart=cart)
         self._session.clear()
         self._committed = True
@@ -51,7 +46,7 @@ class Session:
         self.storage = storage
     def add_new_order(self, order: Order) -> None :
         self.new_orders.update({order.id:order})
-    def add_carts(self, cart:Cart) -> None :
+    def add_cart(self, cart:Cart) -> None :
         self.new_carts.update({cart.id:cart})
     def clear(self)-> None :
         self.new_orders.clear()
