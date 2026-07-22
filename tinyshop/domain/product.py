@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field, replace
 
-from tinyshop.domain.Money import Money
+from tinyshop.domain.money import Money
 
 
 @dataclass(slots=True,frozen=True)
