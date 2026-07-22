@@ -5,7 +5,7 @@ from tinyshop.domain.cart_Item import Cart
 from tinyshop.domain.order import Order
 from tinyshop.domain.product import  Product
 from tinyshop.repositories.protocols import ProductRepository, CartRepository, OrderRepository
-from tinyshop.application.unit_of_work import _Session
+from tinyshop.application.unit_of_work import Session
 
 class InMemoryProductRepository(ProductRepository):
     def __init__(self) -> None:
@@ -31,11 +31,11 @@ class InMemoryProductRepository(ProductRepository):
 
 
 class CartInMemoryRepository(CartRepository):
-    def __init__(self,session:_Session,) -> None:
+    def __init__(self,session:Session,) -> None:
         self._carts: dict[int, Cart] = {}
         self.session = session
     def add(self ,cart: Cart) -> None:
-        self.session.add_carts(cart)
+        self.session.add_cart(cart)
     def get(self, cart_id :int) -> Cart:
         return self.session.get_cart(cart_id)
     def list(self) -> Iterable[Cart]:
@@ -49,7 +49,7 @@ class CartInMemoryRepository(CartRepository):
 
 
 class InMemoryOrderRepository(OrderRepository):
-    def __init__(self,session:_Session) -> None:
+    def __init__(self,session:Session) -> None:
         self._orders: dict[int, Order] = {}
         self.session = session
     def add(self ,order :Order) -> None:
