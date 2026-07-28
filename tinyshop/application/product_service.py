@@ -1,8 +1,7 @@
 from typing import List
 
-from tinyshop.domain.Money import Money
-from tinyshop.domain.Product import Product
-from tinyshop.repositories.protocols import ProductRepository
+from tinyshop.domain import Product,Money
+from tinyshop.repositories import ProductRepository
 
 
 class ProductService:

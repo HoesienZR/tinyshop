@@ -1,10 +1,9 @@
 from abc import ABC, abstractmethod
 
-from tinyshop.domain.cart_Item import Cart
-from tinyshop.domain.order import Order
-from tinyshop.repositories.in_memory import CartInMemoryRepository, InMemoryOrderRepository
-from tinyshop.repositories.protocols import CartRepository,OrderRepository
-from tinyshop.application.storage import MemoryStorage
+from tinyshop.domain import Order,Cart
+from tinyshop.repositories import CartInMemoryRepository, InMemoryOrderRepository
+from tinyshop.repositories import CartRepository,OrderRepository
+from tinyshop.application import MemoryStorage
 class AbstractUnitOfWork(ABC):
     carts: CartRepository
     orders:  OrderRepository

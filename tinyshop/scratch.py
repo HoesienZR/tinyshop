@@ -1,6 +1,6 @@
 # scratch.py
 
-from tinyshop.domain.models import Money, Product
+from tinyshop.domain import Money, Product
 
 cases = [
     lambda: Money(100, "USD"),

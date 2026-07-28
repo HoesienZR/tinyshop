@@ -1,10 +1,12 @@
 
 from tinyshop.errors import CurrencyMismatchError
-from tinyshop.domain.models import Cart, CartItem, Product, Money
+from tinyshop.domain.cart_Item import Cart, CartItem, Product, Money
+from tinyshop.domain.cart
+
 import pytest
 
-from tinyshop.repositories import InMemoryProductRepository
-from tinyshop.services import ProductService
+from tinyshop.repositories.in_memory import InMemoryProductRepository
+from tinyshop.application.product_service import ProductService
 
 
 @pytest.fixture

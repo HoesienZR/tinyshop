@@ -1,11 +1,9 @@
 from pathlib import Path
 from typing import Iterable
 
-from tinyshop.domain.cart_Item import Cart
-from tinyshop.domain.order import Order
-from tinyshop.domain.product import  Product
-from tinyshop.repositories.protocols import ProductRepository, CartRepository, OrderRepository
-from tinyshop.application.unit_of_work import Session
+from tinyshop.domain import Order,Product,Cart
+from tinyshop.repositories import ProductRepository, CartRepository, OrderRepository
+from tinyshop.application import Session
 
 class InMemoryProductRepository(ProductRepository):
     def __init__(self) -> None:

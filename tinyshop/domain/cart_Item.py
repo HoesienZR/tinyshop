@@ -1,8 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List
 
-from tinyshop.domain.product import Product
-from tinyshop.domain.money import Money
+from tinyshop.domain import Product,Money,CartItem
 from tinyshop.errors import CurrencyMismatchError
 
 

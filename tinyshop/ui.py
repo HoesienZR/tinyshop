@@ -1,4 +1,4 @@
-from tinyshop.services import ProductService
+from tinyshop.application import ProductService
 
 
 def run_cli(service: ProductService) -> None:

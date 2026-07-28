@@ -1,8 +1,6 @@
 from typing import Protocol, Iterable
 
-from tinyshop.domain.cart_Item import Cart
-from tinyshop.domain.order import Order
-from tinyshop.domain.product import Product
+from tinyshop.domain import Cart,Order,Product
 
 
 class ProductRepository(Protocol):

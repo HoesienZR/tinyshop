@@ -1,4 +1,4 @@
-from tinyshop.domain.order import Order, OrderItem
+from tinyshop.domain import OrderItem,Order
 from tinyshop.application.unit_of_work import InMemoryUnitOfWork,AbstractUnitOfWork
 
 class CheckoutService:

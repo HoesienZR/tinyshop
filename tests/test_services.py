@@ -1,8 +1,8 @@
 import pytest
 
 from tinyshop.domain.models import Product
-from tinyshop.services import ProductService, CartService, CheckoutService
-from tinyshop.repositories import InMemoryProductRepository, CartInMemoryRepository, InMemoryOrderRepository, \
+from tinyshop.application.services import ProductService, CartService, CheckoutService
+from tinyshop.repositories.in_memory import InMemoryProductRepository, CartInMemoryRepository, InMemoryOrderRepository, \
     OrderRepository, CartRepository
 
 
