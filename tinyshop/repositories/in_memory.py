@@ -1,9 +1,12 @@
 from pathlib import Path
 from typing import Iterable
 
-from tinyshop.domain import Order,Product,Cart
-from tinyshop.repositories import ProductRepository, CartRepository, OrderRepository
-from tinyshop.application import Session
+from tinyshop.domain.product import Product
+from tinyshop.domain.cart_Item import Cart
+from tinyshop.domain.order import Order
+from .protocols import ProductRepository, CartRepository, OrderRepository
+from tinyshop.persistance import Session
+
 
 class InMemoryProductRepository(ProductRepository):
     def __init__(self) -> None:
@@ -30,33 +33,26 @@ class InMemoryProductRepository(ProductRepository):
 
 class CartInMemoryRepository(CartRepository):
     def __init__(self,session:Session,) -> None:
-        self._carts: dict[int, Cart] = {}
         self.session = session
     def add(self ,cart: Cart) -> None:
         self.session.add_cart(cart)
     def get(self, cart_id :int) -> Cart:
         return self.session.get_cart(cart_id)
     def list(self) -> Iterable[Cart]:
-        return self._carts.values()
+        return self.session.cart_list()
     def remove(self ,cart_id :int) -> None:
-        try:
-            del self._carts[cart_id]
-        except KeyError:
-            raise ValueError("Cart not found")
+        self.session.remove_cart(cart_id)
 
 
 
 class InMemoryOrderRepository(OrderRepository):
     def __init__(self,session:Session) -> None:
-        self._orders: dict[int, Order] = {}
         self.session = session
     def add(self ,order :Order) -> None:
-        self.session.add_new_order(order)
+        self.session.add_order(order)
     def get(self, order_id :int) -> Order:
         return self.session.get_order(order_id=order_id)
     def list(self) -> Iterable[Order]:
-        return self._orders.values()
+        return self.session.order_list()
     def remove(self ,order_id :int) -> None:
-        if order_id not in self._orders:
-            raise ValueError("Order not found")
-        del self._orders[order_id]
+        self.session.remove_order(order_id=order_id)

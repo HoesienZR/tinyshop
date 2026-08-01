@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Iterable
 
 from tinyshop.domain.product import Product
-from tinyshop.repositories.protocols import ProductRepository
+from .protocols import ProductRepository
 
 
 class JsonProductRepository(ProductRepository):
