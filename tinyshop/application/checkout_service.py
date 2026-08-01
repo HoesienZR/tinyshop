@@ -1,5 +1,5 @@
-from tinyshop.domain import OrderItem,Order
-from tinyshop.application.unit_of_work import InMemoryUnitOfWork,AbstractUnitOfWork
+from tinyshop.domain.order import OrderItem,Order
+from .unit_of_work import InMemoryUnitOfWork,AbstractUnitOfWork
 
 class CheckoutService:
     def __init__(self,
@@ -13,7 +13,7 @@ class CheckoutService:
                 raise ValueError(f"No items in  found in cart with item {cart_id}")
             order_items = [ OrderItem.from_cart_item(item ) for item in cart.items ]
             order = Order(id=order_id,items= tuple(order_items))
-            self.uow._session.add_new_order(order=order)
+            self.uow._session.add_order(order=order)
             self.uow._session.add_delete_carts(cart_id=cart_id)
             self.uow.commit()
         return order

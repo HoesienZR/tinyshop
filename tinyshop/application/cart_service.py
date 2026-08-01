@@ -1,6 +1,7 @@
 from typing import List
 
-from tinyshop.domain import Product,Cart
+from tinyshop.domain.product import Product
+from tinyshop.domain.cart_Item import Cart
 from tinyshop.repositories.protocols import CartRepository
 
 
