@@ -13,3 +13,11 @@ class MemoryStorage:
         return self.carts.get(cart_id, None)
     def get_order(self, order_id:int) -> Order:
         return self.orders.get(order_id, None)
+    def list_cart_ids(self):
+        return self.carts.keys()
+    def list_order_ids(self):
+        return self.orders.keys()
+    def list_carts(self):
+        return self.carts.values()
+    def list_orders(self):
+        return self.orders.values()
