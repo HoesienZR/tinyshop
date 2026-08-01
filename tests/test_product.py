@@ -1,6 +1,7 @@
 import pytest
 
-from tinyshop.domain.models import Product, Money
+from tinyshop.domain.product import Product
+from tinyshop.domain.money import Money
 
 def test_create_product():
     m1 = Money(amount=12, currency="IRR")

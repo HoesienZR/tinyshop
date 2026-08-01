@@ -1,13 +1,14 @@
-
+from tinyshop.application.storage import MemoryStorage
 from tinyshop.errors import CurrencyMismatchError
-from tinyshop.domain.cart_Item import Cart, CartItem, Product, Money
-from tinyshop.domain.cart
+from tinyshop.domain.cart_Item import Cart, CartItem
+from tinyshop.domain.money import Money
+from tinyshop.domain.product import Product
 
 import pytest
 
+from tinyshop.persistence import Session
 from tinyshop.repositories.in_memory import InMemoryProductRepository
 from tinyshop.application.product_service import ProductService
-
 
 @pytest.fixture
 def service():

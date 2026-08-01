@@ -1,5 +1,5 @@
 from tinyshop.errors import CurrencyMismatchError
-from tinyshop.domain.models import Money
+from tinyshop.domain.money import Money
 import pytest
 
 def test_create_money():

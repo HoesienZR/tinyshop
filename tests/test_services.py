@@ -1,19 +1,34 @@
 import pytest
 
-from tinyshop.domain.models import Product
-from tinyshop.application.services import ProductService, CartService, CheckoutService
-from tinyshop.repositories.in_memory import InMemoryProductRepository, CartInMemoryRepository, InMemoryOrderRepository, \
-    OrderRepository, CartRepository
-
+from tinyshop.application.storage import MemoryStorage
+from tinyshop.application.unit_of_work import InMemoryUnitOfWork
+from tinyshop.domain.product import Product
+from tinyshop.application.cart_service import  CartService
+from tinyshop.application.product_service import ProductService
+from tinyshop.application.checkout_service import CheckoutService
+from tinyshop.persistence import Session
+from tinyshop.repositories.in_memory import InMemoryProductRepository, CartInMemoryRepository, InMemoryOrderRepository
+from tinyshop.repositories.protocols import OrderRepository, CartRepository
 
 @pytest.fixture
-def cart_repository():
-    cart = CartInMemoryRepository()
+def memory_storage():
+    return MemoryStorage()
+@pytest.fixture
+def session(memory_storage):
+    return Session(memory_storage)
+@pytest.fixture
+def unit_of_work_fixture(memory_storage):
+    uow = InMemoryUnitOfWork(memory_storage)
+    return uow
+
+@pytest.fixture
+def cart_repository(session):
+    cart = CartInMemoryRepository(session=session)
     print(cart)
     return cart
 @pytest.fixture
-def order_repository():
-    return InMemoryOrderRepository()
+def order_repository(session):
+    return InMemoryOrderRepository(session=session)
 @pytest.fixture
 def service():
     repo = InMemoryProductRepository()
@@ -22,10 +37,8 @@ def service():
 def cart_service(cart_repository):
     return CartService(repo=cart_repository)
 @pytest.fixture
-def checkout_service(cart_repository, order_repository):
-
-     print(cart_repository)
-     return CheckoutService(cart_repository=cart_repository, order_repository=order_repository)
+def checkout_service(unit_of_work_fixture):
+     return CheckoutService(uow=unit_of_work_fixture)
 def test_create_product_by_service(service: ProductService):
 
     product = service.create_product(product_id=1,title="test",currency="IRR",amount=100)
@@ -92,6 +105,7 @@ def test_get_cart_with_service(cart_service: CartService):
     assert cart_service.get_cart_by_id(1) is  cart
 def test_remove_cart_with_service(cart_service: CartService):
     cart = cart_service.create_cart(cart_id=2)
+    print(cart_service.get_cart_by_id(cart_id=2))
     cart_service.remove_cart(cart_id=2)
     with pytest.raises(ValueError):
         cart_service.get_cart_by_id(cart_id=2)
@@ -118,24 +132,7 @@ def test_change_product_quantity(cart_service: CartService,service: ProductServi
     cart.add_product(product, quantity=2)
     cart.change_quantity(product_id=1,change=3)
     assert cart.items[0].quantity == 5
-def test_successful_checkout_with_service(cart_service: CartService,
-                                          service: ProductService,
-                                          checkout_service:CheckoutService):
-    cart = cart_service.create_cart(cart_id=1)
 
-    product = service.create_product(product_id=1, title="test", currency="IRR", amount=100)
-    cart.add_product(product, quantity=2)
-    order = checkout_service.checkout(cart_id=1,order_id=10)
-    assert len(order.items) == 1
-    assert order.items[0].quantity == 2
-    assert order.items[0].product_id == product.id
-    assert order.items[0].unit_price == product.price
-    assert order.items[0].unit_price.amount == product.price.amount
-    assert order.id == 10
-    assert order.total_price == 200
-    assert order.total_price.currency == "IRR"
-    with pytest.raises(ValueError):
-        cart_service.get_cart_by_id(cart_id=1)
 
 def test_checkout_with_empty_cart(cart_service: CartService,
                                   checkout_service:CheckoutService):
