@@ -121,3 +121,13 @@ well now i'm processing and writing uow and session and recreated project
 39
 21/08/2026
 well UoW finished just tests remains to finish :D
+40
+29/08/2026
+well our streak have large gap between in it i have to make less and less but or today i tried to refactor the project tomorrow
+i'm going to finish it and get back to fixing tests
+41
+30/08/2026
+trying to do the session it's get so exausting
+42
+1/09/2026
+i think session finished i think
