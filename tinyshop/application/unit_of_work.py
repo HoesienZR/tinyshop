@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 from tinyshop.repositories.in_memory import CartInMemoryRepository, InMemoryOrderRepository
 from tinyshop.repositories.protocols import CartRepository,OrderRepository
-from tinyshop.persistance import Session
+from tinyshop.persistence import Session
 from .storage import MemoryStorage
 class AbstractUnitOfWork(ABC):
     carts: CartRepository

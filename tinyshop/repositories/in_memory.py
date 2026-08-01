@@ -5,7 +5,7 @@ from tinyshop.domain.product import Product
 from tinyshop.domain.cart_Item import Cart
 from tinyshop.domain.order import Order
 from .protocols import ProductRepository, CartRepository, OrderRepository
-from tinyshop.persistance import Session
+from tinyshop.persistence import Session
 
 
 class InMemoryProductRepository(ProductRepository):
